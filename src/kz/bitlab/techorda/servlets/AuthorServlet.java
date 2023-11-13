@@ -8,21 +8,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import kz.bitlab.techorda.db.Author;
 import kz.bitlab.techorda.db.Book;
 import kz.bitlab.techorda.db.DBConnection;
-import kz.bitlab.techorda.db.DBManager;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
-@WebServlet(value = "/home")
-public class HomeServlet extends HttpServlet {
+@WebServlet(value = "/authors")
+public class AuthorServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<Book> books = DBConnection.getBooks();
-        request.setAttribute("knigi", books);
-
         ArrayList<Author> authors = DBConnection.getAuthors();
         request.setAttribute("authors", authors);
-        request.getRequestDispatcher("/books.jsp").forward(request,response);
+        request.getRequestDispatcher("/authors.jsp").forward(request,response);
     }
 }

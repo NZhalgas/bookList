@@ -1,5 +1,7 @@
 <%@ page import="kz.bitlab.techorda.db.Book" %>
 <%@ page import="kz.bitlab.techorda.db.DBManager" %>
+<%@ page import="kz.bitlab.techorda.db.Author" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
@@ -32,7 +34,8 @@
             </div>
             <div class="row mt-2">
               <div class="col-12">
-                <input type="text" class="form-control" readonly value="<%=book.getAuthor()%>">
+                <input type="text" class="form-control" readonly
+                       value="<%=book.getAuthor().getFirst_name()+" "+book.getAuthor().getLast_name()%>">
               </div>
             </div>
             <div class="row mt-3">
@@ -126,7 +129,19 @@
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col-12">
-                                                <input type="text" class="form-control" name="book_author" value="<%=book.getAuthor()%>">
+                                                <select class="form-select" name="book_author">
+                                                    <%
+                                                        ArrayList<Author> authors = (ArrayList<Author>) request.getAttribute("authors");
+                                                        if(authors!=null){
+                                                            for(Author author:authors){
+                                                    %>
+                                                    <option <%=(author.getId()==book.getAuthor().getId()?"selected":"")%>
+                                                            value="<%=author.getId()%>"><%=author.getFirst_name()+" "+author.getLast_name()%></option>
+                                                    <%
+                                                            }
+                                                        }
+                                                    %>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
